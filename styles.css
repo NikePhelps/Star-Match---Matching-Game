@@ -6,6 +6,39 @@
     border: 1px solid black;
 }
 
+.card_section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+}
+
+.card img {
+    height: 150px;
+    width: 150px;
+    
+}
+
+.card_up {
+    background: blue;
+    backface-visibility: hidden;
+}
+
+.card {
+    transform-style: preserve-3d;
+    transform-origin: center right;
+    transition: transform 1s;
+    
+}
+
+.card.is-flipped {
+    transform: translateX(-100%) rotateY(-180deg);
+  }
+
+  .card_down {
+      transform: rotateY(180deg);
+  }
+/* 
 @keyframes move-twink-back {
     
         from {background-position:0 0;}
@@ -133,4 +166,4 @@
       animation:move-clouds-back 200s linear infinite;
     
     }
-    
+     */

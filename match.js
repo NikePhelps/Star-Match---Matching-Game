@@ -9,23 +9,74 @@ window.onload = function() {
 // display cards function called. have shuffle function inside of dispolay cards function
 const cardList = [
     {
-      name: "aquarius",
-      image: "someurlet"
+      name: "cancer",
+      image: "cancer.png"
     },
     
     {
-      name: "taurus",
-      image: "someurletc"
+      name: "gemini",
+      image: "gemini.png"
     },
     {
-      name: "stars",
-      image: "someurletc"
-    }
+      name: "leo",
+      image: "leo.png"
+    },
+    {
+        name: "libra",
+        image: "libra.png"
+    },
+    {
+        name: "sagittarius",
+        image: "sagittarius.png"
+    },
+    {
+        name: "scorpio",
+        image: "scorpio.png"
+    },
+    {
+        name: "cancer",
+        image: "cancer.png"
+      },
+      
+      {
+        name: "gemini",
+        image: "gemini.png"
+      },
+      {
+        name: "leo",
+        image: "leo.png"
+      },
+      {
+          name: "libra",
+          image: "libra.png"
+      },
+      {
+          name: "sagittarius",
+          image: "sagittarius.png"
+      },
+      {
+          name: "scorpio",
+          image: "scorpio.png"
+      }
    ];
    
+   function shuffle(cardArray) {
+    var currentIndex = cardArray.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = cardArray[currentIndex];
+      cardArray[currentIndex] = cardArray[randomIndex];
+      cardArray[randomIndex] = temporaryValue;
+    }
+    return cardArray;
+  }
+  shuffle(cardList);
    
-   
-   let grid = document.querySelector(".cards");
+   let grid = document.querySelector(".card_section");
    
    for (let i = 0; i <= cardList.length -1; i++) {
    
@@ -33,8 +84,8 @@ const cardList = [
    newdiv.className = `card ${cardList[i].name}`;
    
    newdiv.innerHTML =`
-   <p>Name: ${cardList[i].name}</p>
-   <p>Image: ${cardList[i].image}</p>`;
+   <div class="card_down"><img src= "/images/${cardList[i].image}"></div>
+   <div class="card_up"></div>`;
    
    
    grid.append(newdiv);
@@ -42,6 +93,33 @@ const cardList = [
    
    }
     };
+    function cardFlip() {
+        document.querySelector(".card_section").addEventListener("click", function(event) {
+            if (event.target.classList.contains(".card")) {
+                cardFlip.classList.toggle('is-flipped');
+                console.log("flipped");
+            }
+        });
+    }
+    cardFlip();
+    // let cardFlip = function() {
+    //     cardFlip.classList.toggle('is-flipped');
+    // };
+    
+    // for (let i = 0; i < cardList.len; i++) {
+    //     let flipCard = cardList[i];
+    //  flipCard.addEventListener("click", cardFlip);
+     
+    // }
+    
+    
+    
+//     cardFlip.addEventListener("click", function (event) {
+//     if (event.target.classList.contains(".card")) {
+//         cardFlip.classList.toggle('is-flipped');
+//         console.log("flipped");
+//     }
+// });
 // display cards function declaration
 
 
