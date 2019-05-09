@@ -10,7 +10,6 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    
 }
 
 .card img {
@@ -19,8 +18,7 @@
     
 }
 
-.card_up {
-    background: blue;
+.card_face {
     backface-visibility: hidden;
 }
 
@@ -31,13 +29,21 @@
     
 }
 
-.card.is-flipped {
+.is-flipped {
     transform: translateX(-100%) rotateY(-180deg);
   }
 
-  .card_down {
+  .card_up {
       transform: rotateY(180deg);
   }
+
+  .scene {
+    width: 150px;
+    height: 150px;
+    perspective: 600px;
+  }
+
+
 /* 
 @keyframes move-twink-back {
     

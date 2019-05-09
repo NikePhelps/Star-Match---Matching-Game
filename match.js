@@ -59,6 +59,7 @@ const cardList = [
           image: "scorpio.png"
       }
    ];
+
    
    function shuffle(cardArray) {
     var currentIndex = cardArray.length, temporaryValue, randomIndex;
@@ -84,43 +85,32 @@ const cardList = [
    newdiv.className = `card ${cardList[i].name}`;
    
    newdiv.innerHTML =`
+   <div class="scene">
+   <div class="card_up"><img class= "card_image" src = "/images/background.jpg"></div>
    <div class="card_down"><img src= "/images/${cardList[i].image}"></div>
-   <div class="card_up"></div>`;
+   </div>
+   `;
    
    
    grid.append(newdiv);
    
    
    }
+   cardFlip();
     };
+  
+    // const cards = document.querySelectorAll(".card_down");
+    // function cardFlip() {
+    //     this.classList.toggle("is-flipped");
+    // } 
+    // cards.forEach(card => card.addEventListener("click", cardFlip));
     function cardFlip() {
+        let card = document.querySelector(".card");
         document.querySelector(".card_section").addEventListener("click", function(event) {
-            if (event.target.classList.contains(".card")) {
-                cardFlip.classList.toggle('is-flipped');
-                console.log("flipped");
-            }
+        if (event.target.classList.contains("card_image")) {
+            card.classList.toggle("is-flipped");
+            console.log(event);
+            };
         });
     }
-    cardFlip();
-    // let cardFlip = function() {
-    //     cardFlip.classList.toggle('is-flipped');
-    // };
-    
-    // for (let i = 0; i < cardList.len; i++) {
-    //     let flipCard = cardList[i];
-    //  flipCard.addEventListener("click", cardFlip);
-     
-    // }
-    
-    
-    
-//     cardFlip.addEventListener("click", function (event) {
-//     if (event.target.classList.contains(".card")) {
-//         cardFlip.classList.toggle('is-flipped');
-//         console.log("flipped");
-//     }
-// });
-// display cards function declaration
-
-
 }
