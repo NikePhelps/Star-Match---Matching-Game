@@ -1,43 +1,119 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .hide {
     display: none;
 }
 
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    position: relative;
+    transition: all .4s linear;
+    transform-style: preserve-3d;
+    margin: 5px;
+}
+
+.card, .cardBack, .cardFront {
+    height: 150px;
+    width: 150px;
+}
+
+.cardBack, .cardFront {
+    position: absolute;
+    backface-visibility: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.cardFront {
+    z-index: 2;
+    background-image: url("/images/Galaxy.jpg");
+    background-color: blue;
+}
+
+.cardBack {
+    transform: rotateY(180deg);
+    background-color: red;
+}
+
+.selected {
+    transform: rotateY(180deg);
+}
+
+.match .cardFront {
+    background-color: blue !important;
+    background-image: none !important;
+}
+
+/* need to not flip back on matched cards */
+
+
+
+
+
+
+
+/* 
 .timer_section, .card_section, .popup {
     border: 1px solid black;
+    z-index: 10;
 }
 
 .card_section {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    
 }
 
-.card img {
+.card.scene {
     height: 150px;
     width: 150px;
-    
-}
-
-.card_up {
-    background: blue;
-    backface-visibility: hidden;
+    perspective: 300px;
 }
 
 .card {
+    height: 100%;
+    width: 100%;
+    position: relative;
     transform-style: preserve-3d;
     transform-origin: center right;
     transition: transform 1s;
+}
+
+.card_face {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+}
+
+/* .card img {
+    height: 150px;
+    width: 150px;
     
+} */
+
+/* .card_up {
+    backface-visibility: hidden;
+} */
+
+/* .card_down {
+      transform: rotateY(180deg);
 }
 
 .card.is-flipped {
-    transform: translateX(-100%) rotateY(-180deg);
-  }
+    transform: rotateY(180deg);
+}  */
 
-  .card_down {
-      transform: rotateY(180deg);
-  }
+
 /* 
 @keyframes move-twink-back {
     
