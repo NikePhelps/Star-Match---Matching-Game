@@ -1,47 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .hide {
     display: none;
 }
 
-.timer_section, .card_section, .popup {
-    border: 1px solid black;
-}
-
-.card_section {
+.grid {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-}
-
-.card img {
-    height: 150px;
-    width: 150px;
-    
-}
-
-.card_face {
-    backface-visibility: hidden;
+    justify-content: space-between;
 }
 
 .card {
+    position: relative;
+    transition: all .4s linear;
     transform-style: preserve-3d;
-    transform-origin: center right;
-    transition: transform 1s;
-    
+    margin: 5px;
 }
 
-.is-flipped {
-    transform: translateX(-100%) rotateY(-180deg);
-  }
-
-  .card_up {
-      transform: rotateY(180deg);
-  }
-
-  .scene {
-    width: 150px;
+.card, .cardBack, .cardFront {
     height: 150px;
-    perspective: 600px;
-  }
+    width: 150px;
+}
+
+.cardBack, .cardFront {
+    position: absolute;
+    backface-visibility: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.cardFront {
+    z-index: 2;
+    background-image: url("/images/background.jpg");
+    background-color: blue;
+}
+
+.cardBack {
+    transform: rotateY(180deg);
+    background-color: red;
+}
+
+.selected {
+    transform: rotateY(180deg);
+}
+
+.match .cardFront {
+    background-color: blue !important;
+    background-image: none !important;
+}
 
 
 /* 
