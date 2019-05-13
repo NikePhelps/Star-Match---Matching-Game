@@ -2,8 +2,6 @@
 
 window.onload = function () {
 
-
-
     const cardList = [
         {
             name: "cancer",
@@ -57,22 +55,74 @@ window.onload = function () {
         }
     ];
 
-
     document.querySelector(".win_popup").className = "hide win_popup";
-    // document.querySelector(".reset_button").className = "hide reset_button";
+    document.querySelector(".modal").className = "hide modal";
     document.querySelector(".start_button").addEventListener("click", startGame);
     document.querySelector(".reset_button").addEventListener("click", startGame);
     document.querySelector(".playAgain_button").addEventListener("click", startGame);
+    let cardSound = new Audio("/sounds/laser-sound.mp3");
+    let startSound = new Audio("/sounds/start-sound.wav");
+    let winSound = new Audio("/sounds/win-sound.wav");
 
-    
+    let second = 0;
+    let minute = 0;
+    let timer = document.querySelector(".timer_section");
+    let interval;
+    function startTimer() {
+        interval = setInterval(function () {
+            timer.innerHTML = minute + " mins  " + second + " secs ";
+            second++;
+            if (second == 60) {
+                minute++;
+                second = 0;
+            }
+            if (minute == 60) {
+                hour++;
+                minute = 0;
+            }
+        }, 1000);
+    };
+
+    function resetFlip() {
+        if (event.target.matches(".start_button") || event.target.matches(".playAgain_button")) {
+            return;
+        }
+        let resetInfo = document.querySelectorAll(".card");
+        function flipUp() {
+            resetInfo.forEach(function (card) {
+                setTimeout(card.classList.add("selected"), 3000);
+            });
+        }
+        setTimeout(flipUp, 500);
+
+        function flipDown() {
+            resetInfo.forEach(function (card) {
+                card.classList.remove("selected");
+            });
+        }
+        setTimeout(flipDown, 1000);
+    }
+
+
     function startGame(event) {
         event.preventDefault();
         document.querySelector("#card_section").innerHTML = "";
         document.querySelector(".start_popup").className = "hide start_popup";
         document.querySelector(".win_popup").className = "hide win_popup";
-        // document.querySelector(".reset_button").remove = "hide";
+        document.querySelector(".win_popup").className = "hide win_popup";
 
-        //need a timer start
+        let buttonClick = event.target;
+        if (buttonClick) {
+            startSound.play();
+        }
+
+        second = 0;
+        minute = 0;
+        let timer = document.querySelector(".timer_section");
+        timer.innerHTML = "0 mins 0 secs";
+        clearInterval(interval);
+
+        startTimer();
 
         cardList.sort(function () {
             return 0.5 - Math.random();
@@ -110,18 +160,25 @@ window.onload = function () {
 
         });
 
-        
+        resetFlip();
+
         const checkMatch = function checkMatch() {
             let selected = document.querySelectorAll(".selected");
             selected.forEach(function (card) {
                 card.classList.add("match");
             });
 
-            let ourMatches = document.querySelectorAll(".match").length;
+            let ourMatches = document.querySelectorAll(".match").length
             if (ourMatches === 12) {
-                //timer stop
-                document.querySelector(".win_popup").classList.remove("hide");
+                clearInterval(interval);
+                let finalTime = timer.innerHTML;
+                document.getElementById("totalTime").innerHTML = finalTime;
+                document.querySelector(".win_popup").className = "win_popup scale-up-ver-top";
+                document.querySelector(".modal").className = "modal";
                 console.log("you win");
+
+                    winSound.play();
+                
             }
         }
 
@@ -139,6 +196,10 @@ window.onload = function () {
 
         cardSection.addEventListener("click", function (event) {
             let clicked = event.target;
+
+            if (clicked) {
+                cardSound.play();
+            }
 
             if (clicked.nodeName === "SECTION" || clicked === previousTarget || clicked.parentNode.classList.contains("selected") || clicked.parentNode.classList.contains("match")) {
                 return;
@@ -168,104 +229,3 @@ window.onload = function () {
 
 }
 
-
-
-
-
-// document.querySelector(".win_popup").className = "hide";
-// document.querySelector(".start_button").addEventListener("click", startGame);
-
-// function startGame(event) {
-//     event.preventDefault();
-//     document.querySelector(".start_popup").className = "hide";
-
-//     shuffle(cardList);
-
-//     let grid = document.querySelector(".card_section");
-
-//     for (let i = 0; i <= cardList.length - 1; i++) {
-//         let newdiv = document.createElement("div");
-//         newdiv.className = `scene ${cardList[i].name}`;
-//         newdiv.innerHTML = `
-//    <div class="card">
-//    <div class="card_face card_down"><img src="/images/${cardList[i].image}"></div>
-//    <div class="card_face card_up"><img class="card_image" src="/images/galaxy.jpg"></div>
-//    </div>`;
-//         grid.append(newdiv);
-//     }
-
-//     // cardFlip();
-
-// };
-
-// function shuffle(cardArray) {
-//     var currentIndex = cardArray.length, temporaryValue, randomIndex;
-//     // While there remain elements to shuffle...
-//     while (0 !== currentIndex) {
-//         // Pick a remaining element...
-//         randomIndex = Math.floor(Math.random() * currentIndex);
-//         currentIndex -= 1;
-//         // And swap it with the current element.
-//         temporaryValue = cardArray[currentIndex];
-//         cardArray[currentIndex] = cardArray[randomIndex];
-//         cardArray[randomIndex] = temporaryValue;
-//     }
-//     return cardArray;
-// };
-
-
-// const cardFlip = cardName => {
-//     const index = cardList.findIndex(index => card.name === cardName);
-//     card.index.toggle("is-flipped");
-
-// }
-
-// const cardSection = document.querySelector("section");
-
-
-// cardSection.addEventListener("click", function (event) {
-//     if (event.target.cardList.contains("card_image")) {
-//         cardFlip();
-//         console.log(event);
-
-//     }
-    // else if (event.target.classList.contains("remove_btn")) {       
-    //     removeItem(event.target.attributes[0].value);                    
-    //     event.target.parentNode.remove();                               
-    //     updateTotal();                                                 
-    // }
-// });
-
-    // for (var i = 0; i < cards.length; i++){
-    //     card = cards[i];
-    //     card.addEventListener("click", displayCard);
-
-
-
-    // var cardFlip = function (){
-    //     this.classList.toggle("is-flipped");
-    // };
-
-    // for (var i = 0; i < cards.length; i++){
-    //     flipCard = cards[i];
-    //     flipCard.addEventListener("click", cardFlip);
-    // };
-
-
-
-    // function cardFlip() {
-    //     let card = document.querySelector(".card");
-    //     document.querySelector(".card_section").addEventListener("click", function (event) {
-    //         if (event.target.classList.contains("card_image")) {
-    //             for (let index in cardList) {
-
-    //                 let ourTarget = event.target.index;
-    //                 console.log(ourTarget);
-
-    //                 card.classList.toggle("is-flipped");
-    //             }
-
-
-    //         }
-    //     });
-    // }
